@@ -7,10 +7,10 @@ import { useStore } from './store/useStore'
 
 function useIsMobile(): boolean {
   const [mobile, setMobile] = React.useState(
-    typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches,
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 900px)').matches,
   )
   React.useEffect(() => {
-    const mq = window.matchMedia('(max-width: 767px)')
+    const mq = window.matchMedia('(max-width: 900px)')
     const fn = () => setMobile(mq.matches)
     mq.addEventListener('change', fn)
     return () => mq.removeEventListener('change', fn)

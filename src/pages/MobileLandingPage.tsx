@@ -39,6 +39,7 @@ export default function MobileLandingPage({ onStart }: { onStart: () => void }) 
         Start Mapping
       </button>
       <p className="mt-3 text-center text-xs text-gray-500">Free forever · No account · Works offline</p>
+      <p className="mt-1 text-center text-[10px] text-gray-700">v2 · mobile experience</p>
     </div>
   )
 }

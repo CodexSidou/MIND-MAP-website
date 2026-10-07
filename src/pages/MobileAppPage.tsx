@@ -2,7 +2,7 @@ import React from 'react'
 import { ReactFlowProvider } from '@xyflow/react'
 import { useStore } from '../store/useStore'
 import { useKeyboard } from '../hooks/useKeyboard'
-import TopBar from '../components/sidebar/TopBar'
+import MobileHeader from '../components/sidebar/MobileHeader'
 import Sidebar from '../components/sidebar/Sidebar'
 import MobileTabBar from '../components/toolbar/MobileTabBar'
 import Canvas from '../components/canvas/Canvas'
@@ -23,7 +23,7 @@ export default function MobileAppPage() {
   return (
     <ReactFlowProvider>
       <div className="flex h-[100dvh] w-screen flex-col overflow-hidden bg-[#0F1013]">
-        <TopBar />
+        <MobileHeader />
         <div className="relative flex-1">
           {sidebarOpen && <div className="absolute inset-0 z-20 bg-black/60" onClick={() => setUi({ sidebarOpen: false })} />}
           <Sidebar />
