@@ -192,6 +192,7 @@ export const useStore = create<AppStore>((set, get) => ({
       activeMapId: nextMaps.find((m) => !m.inTrash)?.id ?? nextMaps[0]?.id ?? null,
       settings,
       language: (lang as Language) ?? 'en',
+      ui: { ...get().ui, sidebarOpen: typeof window !== 'undefined' ? window.innerWidth >= 768 : true },
     })
   },
 

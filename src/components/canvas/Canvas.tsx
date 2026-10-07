@@ -170,7 +170,8 @@ export default function Canvas() {
     return <div className="flex h-full items-center justify-center text-sm text-gray-400">No mind map selected.</div>
   }
 
-  const panOnDrag = tool === 'hand' || space ? [0, 1, 2] as number[] : [1, 2]
+  const coarse = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
+  const panOnDrag = coarse || tool === 'hand' || space ? true : [1, 2]
 
   return (
     <div className="h-full w-full">

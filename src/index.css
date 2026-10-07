@@ -88,6 +88,10 @@ input::placeholder, textarea::placeholder { color: #555A68; }
 .react-flow__edge-path { stroke: #4A4D57; }
 .react-flow__edge.selected .react-flow__edge-path { stroke: #3B82F6; }
 .react-flow__handle { background: #555A68 !important; }
+@media (pointer: coarse) {
+  .react-flow__handle { width: 14px !important; height: 14px !important; }
+  .react-flow__resize-control { width: 16px !important; height: 16px !important; }
+}
 .react-flow__controls { background: #15161A; border: 1px solid #2A2D34; }
 .react-flow__minimap { background: #15161A !important; }
 .react-flow__minimap-node { fill: #3A3D46; }
