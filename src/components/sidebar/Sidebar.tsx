@@ -43,14 +43,14 @@ export default function Sidebar() {
       </div>
 
       <div className="flex-1 overflow-y-auto px-2 pb-2">
-        <Section title={t(lang, 'myMindMaps')}>
+        <Section title={`🗺️ ${t(lang, 'myMindMaps')}`}>
           {active.map((m) => (
             <MapRow key={m.id} name={m.name} icon={m.icon} active={m.id === activeMapId} favorite={m.favorite}
               onOpen={() => openMap(m.id)} onFav={() => toggleFavorite(m.id)} onTrash={() => trashMap(m.id)} />
           ))}
         </Section>
 
-        <Section title={t(lang, 'favorites')}>
+        <Section title={`⭐ ${t(lang, 'favorites')}`}>
           {active.filter((m) => m.favorite).map((m) => (
             <button key={m.id} onClick={() => openMap(m.id)} className="block w-full truncate rounded-md px-2 py-1 text-left text-sm text-gray-600 hover:bg-gray-50">
               {m.icon} {m.name}
@@ -58,7 +58,7 @@ export default function Sidebar() {
           ))}
         </Section>
 
-        <Section title={t(lang, 'trash')}>
+        <Section title={`🗑️ ${t(lang, 'trash')}`}>
           <button onClick={() => setShowTrash((v) => !v)} className="text-xs text-gray-400 hover:text-gray-600">
             {showTrash ? 'Hide' : `Show (${trashed.length})`}
           </button>

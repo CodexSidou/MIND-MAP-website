@@ -114,7 +114,7 @@ export default function PropertiesPanel() {
         </>
       )}
       <Field label={t(lang, 'color')}>
-        <div className="flex gap-1.5">
+        <div className="flex flex-wrap gap-1.5">
           {COLORS.map((c) => (
             <button
               key={c}
@@ -126,6 +126,23 @@ export default function PropertiesPanel() {
           ))}
         </div>
       </Field>
+      {!multi && (
+        <Field label="Icon">
+          <div className="flex flex-wrap gap-1">
+            {['💡', '🎯', '🚀', '🎨', '💻', '🧪', '📈', '📝', '✅', '❓', '⚠️', '⭐', '🔥', '📦', '🧊', '❗'].map((e) => (
+              <button
+                key={e}
+                aria-label={`Set icon ${e}`}
+                onClick={() => updateNode(node.id, { icon: e })}
+                className={`rounded p-0.5 text-base hover:bg-gray-100 ${node.data.icon === e ? 'bg-blue-100' : ''}`}
+              >
+                {e}
+              </button>
+            ))}
+            <button aria-label="Clear icon" onClick={() => updateNode(node.id, { icon: '' })} className="rounded p-0.5 text-xs text-gray-400 hover:bg-gray-100">✕</button>
+          </div>
+        </Field>
+      )}
       <button
         onClick={() => (multi ? deleteSelected() : deleteNode(node.id))}
         className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-md border border-red-200 px-3 py-1.5 text-sm text-red-600 hover:bg-red-50"

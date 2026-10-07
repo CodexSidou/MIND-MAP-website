@@ -180,7 +180,7 @@ function MindNodeComponent({ id, data, selected }: NodeProps<MindNode>) {
       style={data.color ? { borderColor: data.color, borderLeftWidth: 4, borderLeftColor: data.color } : undefined}
     >
       <div className="flex items-center gap-1.5">
-        {KIND_ICON[data.kind] ?? <Star size={13} className="text-blue-600" />}
+        {data.icon ? <span className="text-sm">{data.icon}</span> : KIND_ICON[data.kind] ?? <Star size={13} className="text-blue-600" />}
         {data.editing ? (
           <EditableText id={id} value={data.title} onCommit={(v) => updateNode(id, { title: v, editing: false })} />
         ) : (
