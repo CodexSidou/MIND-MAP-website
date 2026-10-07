@@ -51,6 +51,7 @@ export interface MindNodeData {
   collapsed?: boolean
   width?: number
   height?: number
+  onLine?: boolean
   [key: string]: unknown
 }
 

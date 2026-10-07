@@ -49,8 +49,8 @@ function EmptyState() {
   const setUi = useStore((s) => s.setUi)
   return (
     <div className="flex h-full flex-col items-center justify-center gap-3 bg-white text-center">
-      <p className="text-xl font-semibold text-gray-800">Your canvas is empty.</p>
-      <p className="text-sm text-gray-400">Start with an idea.</p>
+      <p className="text-xl font-semibold text-gray-800">Your canvas is empty. 🎨</p>
+      <p className="text-sm text-gray-400">Start with an idea. 💡</p>
       <button onClick={() => addNode('idea', { x: 200, y: 200 })} className="mt-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
         + Create your first node
       </button>

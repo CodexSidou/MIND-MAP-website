@@ -13,6 +13,8 @@ export default function ContextMenu() {
   const paste = useStore((s) => s.paste)
   const selectAll = useStore((s) => s.selectAll)
   const toggleCollapse = useStore((s) => s.toggleCollapse)
+  const insertNoteOnEdge = useStore((s) => s.insertNoteOnEdge)
+  const detachOnLineNode = useStore((s) => s.detachOnLineNode)
   const deleteNode = useStore((s) => s.deleteNode)
   const updateNode = useStore((s) => s.updateNode)
 
@@ -37,10 +39,14 @@ export default function ContextMenu() {
     { label: 'Set red', run: () => ctx.nodeId && updateNode(ctx.nodeId, { color: '#EF4444' }) },
     { label: 'Set blue', run: () => ctx.nodeId && updateNode(ctx.nodeId, { color: '#3B82F6' }) },
     { label: 'Set green', run: () => ctx.nodeId && updateNode(ctx.nodeId, { color: '#10B981' }) },
+    { label: 'Detach from line', run: () => ctx.nodeId && detachOnLineNode(ctx.nodeId) },
     { label: t(lang, 'delete'), run: () => ctx.nodeId && deleteNode(ctx.nodeId) },
   ]
 
-  const edgeItems = [{ label: t(lang, 'delete'), run: () => deleteSelected() }]
+  const edgeItems = [
+    { label: 'Insert note here', run: () => ctx.edgeId && insertNoteOnEdge(ctx.edgeId) },
+    { label: t(lang, 'delete'), run: () => deleteSelected() },
+  ]
 
   const items = ctx.target === 'pane' ? paneItems : ctx.target === 'node' ? nodeItems : edgeItems
 

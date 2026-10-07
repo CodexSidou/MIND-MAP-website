@@ -116,6 +116,8 @@ interface AppStore {
   deleteNode: (id: string) => void
   updateEdge: (id: string, patch: Partial<MindEdge>) => void
   toggleCollapse: (id: string) => void
+  insertNoteOnEdge: (edgeId: string) => void
+  detachOnLineNode: (nodeId: string) => void
   groupSelected: () => void
   ungroupNode: (id: string) => void
 
@@ -280,11 +282,28 @@ export const useStore = create<AppStore>((set, get) => ({
 
   onEdgesChange: (changes) => {
     set({
-      maps: patchActive(get().maps, get().activeMapId, (m) => ({
-        ...m,
-        edges: applyEdgeChanges(changes, m.edges),
-        updatedAt: Date.now(),
-      })),
+      maps: patchActive(get().maps, get().activeMapId, (m) => {
+        const next = applyEdgeChanges(changes, m.edges) as unknown as MindEdge[]
+        return {
+          ...m,
+          edges: next.map((e) => {
+            if (e.selected) {
+              const base = (e.data?.baseStroke as string | undefined) ?? (e.style?.stroke as string | undefined) ?? '#D1D5DB'
+              return {
+                ...e,
+                data: { ...e.data, baseStroke: base },
+                style: { ...e.style, stroke: '#3B82F6', strokeWidth: 2 },
+              }
+            }
+            const base = e.data?.baseStroke as string | undefined
+            if (base) {
+              return { ...e, data: { ...e.data, baseStroke: undefined }, style: { ...e.style, stroke: base } }
+            }
+            return e
+          }),
+          updatedAt: Date.now(),
+        }
+      }),
     })
   },
 
@@ -471,6 +490,60 @@ export const useStore = create<AppStore>((set, get) => ({
         updatedAt: Date.now(),
       })),
     })
+  },
+
+  insertNoteOnEdge: (edgeId) => {
+    const m = get().activeMap()
+    if (!m) return
+    const edge = m.edges.find((e) => e.id === edgeId)
+    if (!edge) return
+    const src = m.nodes.find((n) => n.id === edge.source)
+    const tgt = m.nodes.find((n) => n.id === edge.target)
+    if (!src || !tgt) return
+    get().commit()
+    const id = uid('n')
+    const node: MindNode = {
+      id,
+      type: 'mind',
+      position: { x: (src.position.x + tgt.position.x) / 2 - 80, y: (src.position.y + tgt.position.y) / 2 - 24 },
+      style: { width: 160, height: 48 },
+      data: { kind: 'note', title: 'Note', onLine: true },
+      selected: true,
+    }
+    const inEdge: MindEdge = { ...edge, id: uid('e'), source: src.id, target: id }
+    const outEdge: MindEdge = { ...edge, id: uid('e'), source: id, target: tgt.id }
+    set({
+      maps: patchActive(get().maps, get().activeMapId, (mm) => ({
+        ...mm,
+        nodes: [...mm.nodes.map((n) => ({ ...n, selected: false })), node],
+        edges: [...mm.edges.filter((e) => e.id !== edgeId), inEdge, outEdge],
+        updatedAt: Date.now(),
+      })),
+    })
+    get().toast('Note attached to line')
+  },
+
+  detachOnLineNode: (nodeId) => {
+    const m = get().activeMap()
+    if (!m) return
+    const inE = m.edges.find((e) => e.target === nodeId)
+    const outE = m.edges.find((e) => e.source === nodeId)
+    if (!inE || !outE) return
+    const node = m.nodes.find((n) => n.id === nodeId)
+    if (!node) return
+    get().commit()
+    set({
+      maps: patchActive(get().maps, get().activeMapId, (mm) => ({
+        ...mm,
+        nodes: mm.nodes.map((n) => (n.id === nodeId ? { ...n, data: { ...n.data, onLine: false } } : n)),
+        edges: [
+          ...mm.edges.filter((e) => e.id !== inE.id && e.id !== outE.id),
+          { ...inE, id: uid('e'), source: inE.source, target: outE.target },
+        ],
+        updatedAt: Date.now(),
+      })),
+    })
+    get().toast('Detached from line')
   },
 
   updateEdge: (id, patch) => {

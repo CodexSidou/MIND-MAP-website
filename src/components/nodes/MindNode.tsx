@@ -177,7 +177,7 @@ function MindNodeComponent({ id, data, selected }: NodeProps<MindNode>) {
   return (
     <div
       className={`h-full w-full rounded-xl border bg-white px-3 py-2.5 shadow-sm transition-shadow ${selected ? 'border-blue-500 shadow-md ring-1 ring-blue-400' : 'border-gray-200 hover:border-gray-300'}`}
-      style={data.color ? { borderLeftWidth: 4, borderLeftColor: data.color } : undefined}
+      style={data.color ? { borderColor: data.color, borderLeftWidth: 4, borderLeftColor: data.color } : undefined}
     >
       <div className="flex items-center gap-1.5">
         {KIND_ICON[data.kind] ?? <Star size={13} className="text-blue-600" />}

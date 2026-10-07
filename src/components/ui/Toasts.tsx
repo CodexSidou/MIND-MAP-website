@@ -12,7 +12,8 @@ export default function Toasts() {
             t.kind === 'error' ? 'border-red-200 bg-red-50 text-red-700' : t.kind === 'info' ? 'border-blue-200 bg-blue-50 text-blue-700' : 'border-gray-200 bg-white text-gray-700'
           }`}
         >
-          ✓ {t.message}
+          {t.kind === 'error' ? '✕ ' : t.kind === 'info' ? 'ℹ ' : '✓ '}
+          {t.message}
         </div>
       ))}
     </div>

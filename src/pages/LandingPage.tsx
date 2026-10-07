@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { ReactFlow, Background, BackgroundVariant } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
-import { Brain, Check, Globe, ShieldCheck } from 'lucide-react'
+import { Brain } from 'lucide-react'
 import { useStore } from '../store/useStore'
 import MindNodeComponent from '../components/nodes/MindNode'
 import { templates, buildDemo } from '../templates'
@@ -31,6 +31,7 @@ export default function LandingPage({ onStart, onDemo }: { onStart: () => void; 
       </header>
 
       <section className="mx-auto max-w-6xl px-5 pb-10 pt-10 text-center">
+        <div className="mx-auto mb-4 text-5xl">🧠</div>
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
           Think visually.<br />Build anything.
         </h1>
@@ -68,12 +69,12 @@ export default function LandingPage({ onStart, onDemo }: { onStart: () => void; 
 
       <section className="mx-auto max-w-6xl px-5 pb-16 grid gap-4 sm:grid-cols-3">
         {[
-          { icon: <Check size={18} />, t: 'Local-first', d: 'Everything is stored in your browser with IndexedDB. Your data never leaves your device.' },
-          { icon: <Globe size={18} />, t: 'Free forever', d: 'No accounts, no subscriptions, no paid APIs. Open and start mapping.' },
-          { icon: <ShieldCheck size={18} />, t: 'Private by design', d: 'No tracking, no backend, no telemetry. You own your workspace.' },
+          { icon: '💾', t: 'Local-first', d: 'Everything is stored in your browser with IndexedDB. Your data never leaves your device.' },
+          { icon: '🌍', t: 'Free forever', d: 'No accounts, no subscriptions, no paid APIs. Open and start mapping.' },
+          { icon: '🔒', t: 'Private by design', d: 'No tracking, no backend, no telemetry. You own your workspace.' },
         ].map((f) => (
           <div key={f.t} className="rounded-2xl border border-gray-100 p-5">
-            <div className="text-blue-600">{f.icon}</div>
+            <div className="text-2xl">{f.icon}</div>
             <h3 className="mt-3 font-semibold">{f.t}</h3>
             <p className="mt-1 text-sm text-gray-500">{f.d}</p>
           </div>
@@ -101,7 +102,7 @@ export default function LandingPage({ onStart, onDemo }: { onStart: () => void; 
             { n: '3', t: 'Save & export', d: 'Everything autosaves locally. Export to JSON, Markdown, PNG or SVG.' },
           ].map((s) => (
             <div key={s.n} className="rounded-2xl border border-gray-100 p-5">
-              <div className="font-bold text-blue-600">{s.n}</div>
+              <div className="font-bold text-blue-600">{s.n === '1' ? '1️⃣' : s.n === '2' ? '2️⃣' : '3️⃣'}</div>
               <h3 className="mt-1 font-semibold">{s.t}</h3>
               <p className="mt-1 text-sm text-gray-500">{s.d}</p>
             </div>
