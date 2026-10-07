@@ -225,7 +225,7 @@ export default function Canvas() {
             className="!bg-white !border !border-gray-100 rounded-lg"
           />
         )}
-        <Panel position="bottom-left">
+        <Panel position="bottom-left" className="max-md:hidden">
           <ZoomControls />
         </Panel>
       </ReactFlow>

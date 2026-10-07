@@ -26,7 +26,7 @@ export default function WorkspacePage() {
           <Sidebar />
           <main className="relative flex-1">
             {active && active.nodes.length === 0 ? <EmptyState /> : <Canvas />}
-            <div className="absolute left-1/2 top-3 -translate-x-1/2 z-10">
+            <div className="absolute left-1/2 z-10 -translate-x-1/2 top-3 max-md:top-auto max-md:bottom-4">
               <Toolbar />
             </div>
             <PropertiesPanel />

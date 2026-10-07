@@ -33,14 +33,14 @@ export default function TopBar() {
     <header className="flex h-12 items-center gap-2 border-b border-gray-100 bg-white px-3">
       <div className="flex items-center gap-2">
         <Brain size={18} className="text-blue-600" />
-        <span className="text-sm font-semibold tracking-tight">MindMap Pro</span>
+        <span className="hidden text-sm font-semibold tracking-tight sm:inline">MindMap Pro</span>
       </div>
 
       <input
         aria-label="Workspace name"
         value={activeMap?.name ?? ''}
         onChange={(e) => renameActive(e.target.value)}
-        className="ml-2 w-44 truncate rounded-md border border-transparent bg-transparent px-2 py-1 text-sm text-gray-700 outline-none hover:border-gray-200 focus:border-blue-300"
+        className="ml-2 w-28 truncate rounded-md border border-transparent bg-transparent px-2 py-1 text-sm text-gray-700 outline-none hover:border-gray-200 focus:border-blue-300 sm:w-44"
         placeholder="Workspace"
       />
 
@@ -50,13 +50,13 @@ export default function TopBar() {
 
       <div className="flex-1" />
 
-      <button aria-label="AI" title="AI tools" onClick={() => setUi({ aiOpen: true })} className="rounded-lg p-2 text-gray-500 hover:bg-gray-100">
+      <button aria-label="AI" title="AI tools" onClick={() => setUi({ aiOpen: true })} className="max-md:hidden rounded-lg p-2 text-gray-500 hover:bg-gray-100">
         <Sparkles size={16} />
       </button>
       <button aria-label={t(language, 'search')} title="Search (Ctrl+F)" onClick={() => setUi({ searchOpen: true })} className="rounded-lg p-2 text-gray-500 hover:bg-gray-100">
         <Search size={16} />
       </button>
-      <button aria-label="Import" title="Import" onClick={() => fileRef.current?.click()} className="rounded-lg p-2 text-gray-500 hover:bg-gray-100">
+      <button aria-label="Import" title="Import" onClick={() => fileRef.current?.click()} className="max-md:hidden rounded-lg p-2 text-gray-500 hover:bg-gray-100">
         <Upload size={16} />
       </button>
       <input ref={fileRef} type="file" accept="application/json" className="hidden" onChange={doImport} />
@@ -64,7 +64,7 @@ export default function TopBar() {
         aria-label={t(language, 'share')}
         title="Share"
         onClick={() => { navigator.clipboard.writeText(exportMapToJson(activeMap)).catch(() => {}); toast('Copied to clipboard') }}
-        className="rounded-lg p-2 text-gray-500 hover:bg-gray-100"
+        className="max-md:hidden rounded-lg p-2 text-gray-500 hover:bg-gray-100"
       >
         <Share2 size={16} />
       </button>

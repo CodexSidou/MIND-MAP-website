@@ -169,7 +169,11 @@ export const useStore = create<AppStore>((set, get) => ({
 
   init: async () => {
     const [maps, savedSettings, lang] = await Promise.all([loadMaps(), loadSettings(), loadLanguage()])
-    const settings = { ...DEFAULT_SETTINGS, ...(savedSettings ?? {}) }
+    const settings = {
+      ...DEFAULT_SETTINGS,
+      ...(savedSettings ?? {}),
+      ...(typeof window !== 'undefined' && window.innerWidth < 768 ? { showMinimap: false } : {}),
+    }
     let nextMaps = maps
     if (nextMaps.length === 0) {
       const demo = buildDemo()
