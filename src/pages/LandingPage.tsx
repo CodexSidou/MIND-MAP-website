@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { ReactFlow, Background, BackgroundVariant } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
-import { Brain } from 'lucide-react'
+import { Brain, Check, Globe, ShieldCheck, Sparkles, Layers, Zap } from 'lucide-react'
 import { useStore } from '../store/useStore'
 import MindNodeComponent from '../components/nodes/MindNode'
 import { templates, buildDemo } from '../templates'
@@ -14,113 +14,128 @@ export default function LandingPage({ onStart, onDemo }: { onStart: () => void; 
   const demo = useMemo(() => buildDemo(), [])
 
   return (
-    <div className="min-h-screen bg-white text-gray-900">
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-        <div className="flex items-center gap-2">
-          <Brain size={20} className="text-blue-600" />
-          <span className="font-semibold tracking-tight">MindMap Pro</span>
-        </div>
-        <div className="flex items-center gap-1 text-xs text-gray-400">
-          {(['en', 'fr', 'ar', 'es', 'de', 'pt', 'zh'] as const).map((l) => (
-            <button key={l} onClick={() => setLanguage(l)} className={`rounded px-1.5 py-0.5 ${lang === l ? 'bg-gray-100 text-gray-700' : 'hover:text-gray-600'}`}>
-              {l.toUpperCase()}
-            </button>
-          ))}
-          <button onClick={onStart} className="ml-2 rounded-lg bg-gray-900 px-3 py-1.5 font-medium text-white hover:bg-gray-800">Open App</button>
+    <div className="min-h-screen bg-[#FAFBFD] text-slate-900">
+      <header className="sticky top-0 z-20 border-b border-slate-200/60 bg-white/70 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
+          <div className="flex items-center gap-2">
+            <div className="grid h-8 w-8 place-items-center rounded-lg bg-indigo-600 text-white"><Brain size={16} /></div>
+            <span className="font-semibold tracking-tight">MindMap Pro</span>
+          </div>
+          <nav className="hidden items-center gap-6 text-sm text-slate-500 sm:flex">
+            <a href="#features">Features</a>
+            <a href="#templates">Templates</a>
+            <a href="#how">How it works</a>
+          </nav>
+          <div className="flex items-center gap-1 text-xs text-slate-400">
+            {(['en', 'fr', 'ar', 'es', 'de', 'pt', 'zh'] as const).map((l) => (
+              <button key={l} onClick={() => setLanguage(l)} className={`rounded px-1.5 py-0.5 ${lang === l ? 'bg-slate-100 text-slate-700' : 'hover:text-slate-600'}`}>
+                {l.toUpperCase()}
+              </button>
+            ))}
+            <button onClick={onStart} className="ml-2 rounded-full bg-slate-900 px-4 py-1.5 font-medium text-white transition hover:bg-slate-800">Open App</button>
+          </div>
         </div>
       </header>
 
-      <section className="mx-auto max-w-6xl px-5 pb-10 pt-10 text-center">
-        <div className="mx-auto mb-4 text-5xl">🧠</div>
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-          Think visually.<br />Build anything.
-        </h1>
-        <p className="mx-auto mt-4 max-w-xl text-gray-500">
-          Turn ideas, projects and plans into connected visual workspaces.
-        </p>
-        <div className="mt-6 flex items-center justify-center gap-3">
-          <button onClick={onStart} className="rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-blue-700">
-            Start Mapping
-          </button>
-          <button onClick={onDemo} className="rounded-xl border border-gray-200 px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">
-            Explore Demo
-          </button>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 pb-16">
-        <div className="h-[420px] overflow-hidden rounded-2xl border border-gray-200 shadow-sm">
-          <ReactFlow
-            nodes={demo.nodes}
-            edges={demo.edges}
-            nodeTypes={nodeTypes}
-            nodesDraggable={false}
-            nodesConnectable={false}
-            elementsSelectable={false}
-            panOnDrag={false}
-            zoomOnScroll={false}
-            fitView
-            proOptions={{ hideAttribution: true }}
-          >
-            <Background variant={BackgroundVariant.Dots} gap={24} size={1} color="#2E3138" />
-          </ReactFlow>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 pb-16 grid gap-4 sm:grid-cols-3">
-        {[
-          { icon: '💾', t: 'Local-first', d: 'Everything is stored in your browser with IndexedDB. Your data never leaves your device.' },
-          { icon: '🌍', t: 'Free forever', d: 'No accounts, no subscriptions, no paid APIs. Open and start mapping.' },
-          { icon: '🔒', t: 'Private by design', d: 'No tracking, no backend, no telemetry. You own your workspace.' },
-        ].map((f) => (
-          <div key={f.t} className="rounded-2xl border border-gray-100 p-5">
-            <div className="text-2xl">{f.icon}</div>
-            <h3 className="mt-3 font-semibold">{f.t}</h3>
-            <p className="mt-1 text-sm text-gray-500">{f.d}</p>
+      <section className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-14 lg:grid-cols-2">
+        <div>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
+            <Sparkles size={12} /> 100% free · local-first · no account
+          </span>
+          <h1 className="mt-5 text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl">
+            Think visually.<br />
+            <span className="bg-gradient-to-r from-indigo-600 to-sky-500 bg-clip-text text-transparent">Build anything.</span>
+          </h1>
+          <p className="mt-5 max-w-lg text-lg text-slate-500">
+            Turn ideas, projects and plans into connected visual workspaces on an infinite canvas.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <button onClick={onStart} className="rounded-full bg-indigo-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 transition hover:bg-indigo-700">
+              Start Mapping →
+            </button>
+            <button onClick={onDemo} className="rounded-full border border-slate-200 bg-white px-7 py-3.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50">
+              Explore Demo
+            </button>
           </div>
-        ))}
-      </section>
+          <p className="mt-4 flex items-center gap-2 text-xs text-slate-400">
+            <Check size={12} className="text-emerald-500" /> Works offline · No login · Exports JSON, PNG, SVG, Markdown
+          </p>
+        </div>
 
-      <section className="mx-auto max-w-6xl px-5 pb-16">
-        <h2 className="text-2xl font-bold tracking-tight">Templates</h2>
-        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
-          {templates.map((tp) => (
-            <div key={tp.id} className="rounded-xl border border-gray-100 p-4 text-center text-sm text-gray-600">
-              <div className="text-2xl">{tp.icon}</div>
-              <div className="mt-1 font-medium">{tp.name}</div>
-            </div>
-          ))}
+        <div className="rounded-3xl border border-slate-200 bg-white p-2 shadow-xl shadow-slate-200/60">
+          <div className="h-[380px] overflow-hidden rounded-2xl">
+            <ReactFlow
+              nodes={demo.nodes}
+              edges={demo.edges}
+              nodeTypes={nodeTypes}
+              nodesDraggable={false}
+              nodesConnectable={false}
+              elementsSelectable={false}
+              panOnDrag={false}
+              zoomOnScroll={false}
+              fitView
+              proOptions={{ hideAttribution: true }}
+            >
+              <Background variant={BackgroundVariant.Dots} gap={26} size={1} color="#E2E8F0" />
+            </ReactFlow>
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-16 text-center">
-        <h2 className="text-2xl font-bold tracking-tight">How it works</h2>
-        <div className="mt-6 grid gap-4 text-left sm:grid-cols-3">
+      <section id="features" className="mx-auto max-w-6xl px-5 pb-16">
+        <h2 className="text-3xl font-bold tracking-tight">Everything you need to think bigger</h2>
+        <div className="mt-8 grid gap-4 sm:grid-cols-3">
           {[
-            { n: '1', t: 'Create a node', d: 'Click the node tool and drop ideas anywhere on the infinite canvas.' },
-            { n: '2', t: 'Connect ideas', d: 'Drag from one handle to another to build your map.' },
-            { n: '3', t: 'Save & export', d: 'Everything autosaves locally. Export to JSON, Markdown, PNG or SVG.' },
-          ].map((s) => (
-            <div key={s.n} className="rounded-2xl border border-gray-100 p-5">
-              <div className="font-bold text-blue-600">{s.n === '1' ? '1️⃣' : s.n === '2' ? '2️⃣' : '3️⃣'}</div>
-              <h3 className="mt-1 font-semibold">{s.t}</h3>
-              <p className="mt-1 text-sm text-gray-500">{s.d}</p>
+            { icon: <Layers size={20} />, t: 'All node types', d: 'Ideas, tasks, notes, projects, goals, checklists, links, images and more.' },
+            { icon: <Zap size={20} />, t: 'Fast canvas', d: 'Smooth pan and zoom with dot-grid snapping and a live minimap.' },
+            { icon: <Globe size={20} />, t: 'Offline first', d: 'Every workspace is stored locally in your browser via IndexedDB.' },
+            { icon: <ShieldCheck size={20} />, t: 'Private by default', d: 'No server, no tracking, no sign-up. Your data stays yours.' },
+            { icon: <Sparkles size={20} />, t: 'Command palette', d: 'Press Ctrl+K to create, search and navigate without the mouse.' },
+            { icon: <Check size={20} />, t: 'Export anywhere', d: 'Download JSON, Markdown, PNG or SVG of any map.' },
+          ].map((f) => (
+            <div key={f.t} className="rounded-2xl border border-slate-200/70 bg-white p-5 transition hover:shadow-md">
+              <div className="text-indigo-600">{f.icon}</div>
+              <h3 className="mt-3 font-semibold">{f.t}</h3>
+              <p className="mt-1 text-sm text-slate-500">{f.d}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-20 text-center">
-        <h2 className="text-3xl font-bold tracking-tight">Start mapping — it is free.</h2>
-        <button onClick={onStart} className="mt-5 rounded-xl bg-blue-600 px-6 py-3 text-sm font-medium text-white hover:bg-blue-700">
-          Start Mapping
-        </button>
+      <section id="templates" className="mx-auto max-w-6xl px-5 pb-16">
+        <h2 className="text-3xl font-bold tracking-tight">Start from a template</h2>
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-5">
+          {templates.map((tp) => (
+            <div key={tp.id} className="rounded-2xl border border-slate-200/70 bg-white p-5 text-center text-sm text-slate-600 transition hover:border-indigo-300 hover:shadow-md">
+              <div className="text-2xl">{tp.icon}</div>
+              <div className="mt-2 font-medium">{tp.name}</div>
+            </div>
+          ))}
+        </div>
       </section>
 
-      <footer className="border-t border-gray-100 py-6 text-center text-xs text-gray-400">
-        MindMap Pro — Think visually. Build anything. · Free forever. No account required.
+      <section id="how" className="mx-auto max-w-6xl px-5 pb-20">
+        <div className="rounded-3xl bg-slate-900 p-10 text-white">
+          <h2 className="text-3xl font-bold tracking-tight">How it works</h2>
+          <div className="mt-8 grid gap-6 sm:grid-cols-3">
+            {[
+              { n: '01', t: 'Create a node', d: 'Drop an idea anywhere on the infinite canvas.' },
+              { n: '02', t: 'Connect ideas', d: 'Drag from a handle to another node to link them.' },
+              { n: '03', t: 'Save & share', d: 'Autosaved locally. Export to JSON, PNG, SVG or Markdown.' },
+            ].map((s) => (
+              <div key={s.n}>
+                <div className="text-sm font-semibold text-indigo-400">{s.n}</div>
+                <h3 className="mt-2 text-lg font-semibold">{s.t}</h3>
+                <p className="mt-1 text-sm text-slate-400">{s.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <footer className="border-t border-slate-200/60 py-8 text-center text-xs text-slate-400">
+        MindMap Pro — free, local-first, open-source spirit. Built for everyone.
       </footer>
     </div>
   )
 }
-

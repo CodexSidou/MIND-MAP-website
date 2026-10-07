@@ -21,7 +21,9 @@ export default function MobileLandingPage({ onStart }: { onStart: () => void }) 
 
       <div className="mt-16 flex-1">
         <div className="text-5xl">🧠</div>
-        <h1 className="mt-5 text-4xl font-bold leading-tight">Think visually.<br />Build anything.</h1>
+        <h1 className="mt-5 text-4xl font-bold leading-tight">
+          Think visually.<br /><span className="bg-gradient-to-r from-indigo-400 to-sky-400 bg-clip-text text-transparent">Build anything.</span>
+        </h1>
         <p className="mt-4 text-gray-400">Create connected mind maps on an infinite canvas — free, offline, and private.</p>
 
         <ul className="mt-8 space-y-3 text-sm text-gray-300">
